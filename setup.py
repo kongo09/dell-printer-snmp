@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Setup file for brother module."""
+"""Setup file for dell-printer-snmp module."""
 from setuptools import setup
 
 with open("README.md", encoding="utf-8") as file:
@@ -12,17 +12,16 @@ with open("requirements-test.txt", encoding="utf-8") as file:
     tests_require = list(val.strip() for val in file.readlines())
 
 setup(
-    name="brother",
-    version="1.2.0",
-    author="Maciej Bieniek",
-    description="Python wrapper for getting data from Brother laser and inkjet \
-        printers via SNMP.",
+    name="dell_printer_snmp",
+    version="1.0.0",
+    author="Maciej Bieniek, kongo09",
+    description="Python wrapper for getting data from Dell printers via SNMP.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     include_package_data=True,
-    url="https://github.com/bieniu/brother",
+    url="https://github.com/kongo09/dell-printer-snmp",
     license="Apache-2.0 License",
-    packages=["brother"],
+    packages=["dell_printer_snmp"],
     python_requires=">=3.8",
     install_requires=install_requires,
     classifiers=[
