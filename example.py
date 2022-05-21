@@ -33,7 +33,7 @@ async def main():
 
     print(f"Model: {dell_printer.model}")
     if data:
-        # print(f"Status: {data.status}")
+        print(f"Status: {data.status}")
         print(f"Serial no: {data.serial}")
         print(f"Page counter: {data.page_counter}")
         print(f"Sensors data: {data}")

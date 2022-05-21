@@ -7,29 +7,23 @@ Python wrapper for getting data from Dell printers via snmp
 ## How to use package
 ```py
 import asyncio
-from sys import argv
-
-from dell_printer_snmp import DellPrinterSnmp, SnmpError, UnsupportedModel
-
-# printer IP address/hostname
-import asyncio
 import logging
 from sys import argv
 
-import pysnmp.hlapi.asyncio as hlapi
+import pysnmp.hlapi as hlapi
 
 from dell_printer_snmp import DellPrinterSnmp, SnmpError, UnsupportedModel
 
 # printer IP address/hostname
-HOST = "dell-printer"
-logging.basicConfig(level=logging.DEBUG)
+HOST = "192.168.0.20"
+logging.basicConfig(level=logging.INFO)
 
 
 async def main():
     host = argv[1] if len(argv) > 1 else HOST
 
     external_snmp = False
-    if len(argv) > 2 and argv[2] == "use_external_snmp":
+    if len(argv) > 3 and argv[2] == "use_external_snmp":
         external_snmp = True
 
     if external_snmp:
@@ -43,21 +37,19 @@ async def main():
         data = await dell_printer.async_update()
     except (ConnectionError, SnmpError, UnsupportedModel) as error:
         print(f"{error}")
-        return
-
-    dell_printer.shutdown()
+        exit()
 
     print(f"Model: {dell_printer.model}")
-    print(f"Firmware: {dell_printer.firmware}")
     if data:
         print(f"Status: {data.status}")
         print(f"Serial no: {data.serial}")
+        print(f"Page counter: {data.page_counter}")
         print(f"Sensors data: {data}")
 
 
-loop = asyncio.get_event_loop()
+loop = asyncio.get_event_loop_policy().get_event_loop()
 loop.run_until_complete(main())
-loop.close()
 ```
+
 [releases]: https://github.com/kongo09/dell-printer-snmp/releases
 [releases-shield]: https://img.shields.io/github/release/kongo09/dell-printer-snmp.svg?style=popout
